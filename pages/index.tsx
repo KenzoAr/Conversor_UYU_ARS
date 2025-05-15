@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaExchangeAlt, FaClock } from "react-icons/fa";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react"; // Aseguramos la importación de React
 
 export default function Home() {
   const [inputValue, setInputValue] = useState<number>(0);
@@ -55,6 +56,8 @@ export default function Home() {
     setLastUpdated(formattedTime);
   };
 
+  const ExchangeIcon = FaExchangeAlt as unknown as React.FC;
+
   return (
     <div className={`min-vh-100 d-flex flex-column align-items-center justify-content-center p-4 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
       <div className="mb-4 text-center">
@@ -87,7 +90,7 @@ export default function Home() {
           onClick={convertir}
           className="btn btn-primary w-100 mb-4 d-flex align-items-center justify-content-center gap-2"
         >
-          <FaExchangeAlt /> Convertir
+          <ExchangeIcon /> Convertir
         </button>
 
         <div className="list-group">
