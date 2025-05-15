@@ -71,15 +71,25 @@ export default function Home() {
           </button>
         </div>
 
-        <div className="mb-3">
-          <input
-            type="number"
-            inputMode="decimal"
-            className="form-control form-control-lg text-center"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Ingrese monto en UYU"
-          />
+        <div className="mb-3 input-group">
+  <input
+    type="number"
+    inputMode="decimal"
+    className="form-control form-control-lg text-center"
+    value={inputValue}
+    onChange={(e) => setInputValue(e.target.value)}
+    placeholder="Ingrese monto en UYU"
+  />
+  {inputValue && (
+    <button
+      type="button"
+      className="btn btn-outline-secondary"
+      onClick={() => setInputValue("")}
+    >
+      ❌
+    </button>
+  )}
+</div>
         </div>
 
         <div className="list-group">
