@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { FaExchangeAlt, FaClock } from "react-icons/fa";
+import { FaClock } from "react-icons/fa";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Home() {
-  const [inputValue, setInputValue] = useState<number>(0);
+  const [inputValue, setInputValue] = useState<string>("");
   const [usdRate, setUsdRate] = useState<number>(0);
   const [arsRate, setArsRate] = useState<number>(0);
   const [arsUsdRate, setArsUsdRate] = useState<number>(0);
@@ -23,7 +23,19 @@ export default function Home() {
 
         setUsdRate(1 / uyurate);
         setArsRate(arsRate / uyurate);
-        setArsUsdRate(arsRate); 
+        setArsUsdRate(arsRate);
+
+        const now = new Date();
+        const formattedTime = now.toLocaleString('es-UY', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        });
+
+        setLastUpdated(formattedTime);
       } else {
         console.error("Respuesta inesperada de la API:", data);
       }
@@ -36,24 +48,11 @@ export default function Home() {
     fetchRates();
   }, []);
 
-  const convertir = () => {
-    fetchRates();
-    setUsdValue(inputValue * usdRate);
-    setArsValue(inputValue * arsRate);
-
-    const now = new Date();
-    const gmt3Time = new Date(now.getTime() - 0 * 60 * 60 * 1000);
-    const formattedTime = gmt3Time.toLocaleString('es-UY', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    });
-
-    setLastUpdated(formattedTime);
-  };
+  useEffect(() => {
+    const value = parseFloat(inputValue || "0");
+    setUsdValue(value * usdRate);
+    setArsValue(value * arsRate);
+  }, [inputValue, usdRate, arsRate]);
 
   return (
     <div className={`min-vh-100 d-flex flex-column align-items-center justify-content-center p-4 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
@@ -78,17 +77,10 @@ export default function Home() {
             inputMode="decimal"
             className="form-control form-control-lg text-center"
             value={inputValue}
-            onChange={(e) => setInputValue(parseFloat(e.target.value))}
+            onChange={(e) => setInputValue(e.target.value)}
             placeholder="Ingrese monto en UYU"
           />
         </div>
-
-        <button
-          onClick={convertir}
-          className="btn btn-primary w-100 mb-4 d-flex align-items-center justify-content-center gap-2"
-        >
-          <FaExchangeAlt /> Convertir
-        </button>
 
         <div className="list-group">
           <div className="list-group-item d-flex justify-content-between align-items-center">
