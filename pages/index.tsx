@@ -34,7 +34,6 @@ export default function Home() {
           minute: '2-digit',
           second: '2-digit',
         });
-
         setLastUpdated(formattedTime);
       } else {
         console.error("Respuesta inesperada de la API:", data);
@@ -49,9 +48,14 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const value = parseFloat(inputValue || "0");
-    setUsdValue(value * usdRate);
-    setArsValue(value * arsRate);
+    const num = parseFloat(inputValue);
+    if (!isNaN(num)) {
+      setUsdValue(num * usdRate);
+      setArsValue(num * arsRate);
+    } else {
+      setUsdValue(0);
+      setArsValue(0);
+    }
   }, [inputValue, usdRate, arsRate]);
 
   return (
@@ -72,24 +76,23 @@ export default function Home() {
         </div>
 
         <div className="mb-3 input-group">
-  <input
-    type="number"
-    inputMode="decimal"
-    className="form-control form-control-lg text-center"
-    value={inputValue}
-    onChange={(e) => setInputValue(e.target.value)}
-    placeholder="Ingrese monto en UYU"
-  />
-  {inputValue && (
-    <button
-      type="button"
-      className="btn btn-outline-secondary"
-      onClick={() => setInputValue("")}
-    >
-      ❌
-    </button>
-  )}
-</div>
+          <input
+            type="number"
+            inputMode="decimal"
+            className="form-control form-control-lg text-center"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            placeholder="Ingrese monto en UYU"
+          />
+          {inputValue && (
+            <button
+              type="button"
+              className="btn btn-outline-secondary"
+              onClick={() => setInputValue("")}
+            >
+              ❌
+            </button>
+          )}
         </div>
 
         <div className="list-group">
