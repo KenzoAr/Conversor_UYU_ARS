@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { FaExchangeAlt, FaClock } from "react-icons/fa";
+import * as FaIcons from "react-icons/fa";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from "react"; // Aseguramos la importación de React
 
 export default function Home() {
   const [inputValue, setInputValue] = useState<number>(0);
@@ -43,7 +42,7 @@ export default function Home() {
     setArsValue(inputValue * arsRate);
 
     const now = new Date();
-    const gmt3Time = new Date(now.getTime() - 0 * 60 * 60 * 1000);
+    const gmt3Time = new Date(now.getTime());
     const formattedTime = gmt3Time.toLocaleString('es-UY', {
       day: '2-digit',
       month: '2-digit',
@@ -55,8 +54,6 @@ export default function Home() {
 
     setLastUpdated(formattedTime);
   };
-
-  const ExchangeIcon = FaExchangeAlt as unknown as React.FC;
 
   return (
     <div className={`min-vh-100 d-flex flex-column align-items-center justify-content-center p-4 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
@@ -90,7 +87,7 @@ export default function Home() {
           onClick={convertir}
           className="btn btn-primary w-100 mb-4 d-flex align-items-center justify-content-center gap-2"
         >
-          <ExchangeIcon /> Convertir
+          <FaIcons.FaExchangeAlt /> Convertir
         </button>
 
         <div className="list-group">
@@ -117,7 +114,7 @@ export default function Home() {
           </ul>
           {lastUpdated && (
             <p className="d-flex align-items-center text-muted">
-              <FaClock className="me-2" /> Actualizado: {lastUpdated}
+              <FaIcons.FaClock className="me-2" /> Actualizado: {lastUpdated}
             </p>
           )}
         </div>
