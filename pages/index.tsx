@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Head from "next/head";
 import { FaClock } from "react-icons/fa";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -59,71 +60,78 @@ export default function Home() {
   }, [inputValue, usdRate, arsRate]);
 
   return (
-    <div className={`min-vh-100 d-flex flex-column align-items-center justify-content-center p-4 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
-      <div className="mb-4 text-center">
-        <h1 className="fw-bold fs-3">🌎 Conversor de Moneda</h1>
-      </div>
+    <>
+      <Head>
+        <title>Conversor de Moneda</title>
+        <link rel="icon" href="/icon.png" type="image/png" />
+      </Head>
 
-      <div className={`card shadow-lg w-100 p-4 rounded-4 ${isDarkMode ? 'bg-secondary text-white' : 'bg-white'}`} style={{ maxWidth: '420px' }}>
-        <div className="d-flex justify-content-between align-items-center mb-3">
-          <h2 className="h5 fw-bold mb-0">Peso Uruguayo</h2>
-          <button
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className="btn btn-outline-secondary btn-sm rounded-pill"
-          >
-            {isDarkMode ? '☀️ Claro' : '🌙 Oscuro'}
-          </button>
+      <div className={`min-vh-100 d-flex flex-column align-items-center justify-content-center p-4 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
+        <div className="mb-4 text-center">
+          <h1 className="fw-bold fs-3">🌎 Conversor de Moneda</h1>
         </div>
 
-        <div className="mb-3 input-group">
-          <input
-            type="number"
-            inputMode="decimal"
-            className="form-control form-control-lg text-center"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            placeholder="Ingrese monto en UYU"
-          />
-          {inputValue && (
+        <div className={`card shadow-lg w-100 p-4 rounded-4 ${isDarkMode ? 'bg-secondary text-white' : 'bg-white'}`} style={{ maxWidth: '420px' }}>
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <h2 className="h5 fw-bold mb-0">Peso Uruguayo</h2>
             <button
-              type="button"
-              className="btn btn-outline-secondary"
-              onClick={() => setInputValue("")}
+              onClick={() => setIsDarkMode(!isDarkMode)}
+              className="btn btn-outline-secondary btn-sm rounded-pill"
             >
-              ❌
+              {isDarkMode ? '☀️ Claro' : '🌙 Oscuro'}
             </button>
-          )}
-        </div>
-
-        <div className="list-group">
-          <div className="list-group-item d-flex justify-content-between align-items-center">
-            <div className="d-flex align-items-center gap-2">
-              🇺🇸 <span className="fw-semibold">USD</span>
-            </div>
-            <span className="fw-bold">{usdValue.toFixed(2)}</span>
           </div>
-          <div className="list-group-item d-flex justify-content-between align-items-center">
-            <div className="d-flex align-items-center gap-2">
-              🇦🇷 <span className="fw-semibold">ARS</span>
-            </div>
-            <span className="fw-bold">{arsValue.toFixed(2)}</span>
-          </div>
-        </div>
 
-        <div className="mt-4 small">
-          <p className="fw-semibold">🔁 Tasas de cambio actuales:</p>
-          <ul className="ps-3 mb-2">
-            <li>1 UYU = {usdRate.toFixed(4)} USD</li>
-            <li>1 UYU = {arsRate.toFixed(4)} ARS</li>
-            <li>1 USD = {arsUsdRate.toFixed(2)} ARS</li>
-          </ul>
-          {lastUpdated && (
-            <p className="d-flex align-items-center text-muted">
-              <FaClock className="me-2" /> Actualizado: {lastUpdated}
-            </p>
-          )}
+          <div className="mb-3 input-group">
+            <input
+              type="number"
+              inputMode="decimal"
+              className="form-control form-control-lg text-center"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Ingrese monto en UYU"
+            />
+            {inputValue && (
+              <button
+                type="button"
+                className="btn btn-outline-secondary"
+                onClick={() => setInputValue("")}
+              >
+                ❌
+              </button>
+            )}
+          </div>
+
+          <div className="list-group">
+            <div className="list-group-item d-flex justify-content-between align-items-center">
+              <div className="d-flex align-items-center gap-2">
+                🇺🇸 <span className="fw-semibold">USD</span>
+              </div>
+              <span className="fw-bold">{usdValue.toFixed(2)}</span>
+            </div>
+            <div className="list-group-item d-flex justify-content-between align-items-center">
+              <div className="d-flex align-items-center gap-2">
+                🇦🇷 <span className="fw-semibold">ARS</span>
+              </div>
+              <span className="fw-bold">{arsValue.toFixed(2)}</span>
+            </div>
+          </div>
+
+          <div className="mt-4 small">
+            <p className="fw-semibold">🔁 Tasas de cambio actuales:</p>
+            <ul className="ps-3 mb-2">
+              <li>1 UYU = {usdRate.toFixed(4)} USD</li>
+              <li>1 UYU = {arsRate.toFixed(4)} ARS</li>
+              <li>1 USD = {arsUsdRate.toFixed(2)} ARS</li>
+            </ul>
+            {lastUpdated && (
+              <p className="d-flex align-items-center text-muted">
+                <FaClock className="me-2" /> Actualizado: {lastUpdated}
+              </p>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
