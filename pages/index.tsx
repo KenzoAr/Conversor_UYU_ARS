@@ -70,7 +70,7 @@ export default function Home() {
 
       <div className={`min-vh-100 d-flex flex-column align-items-center justify-content-center p-4 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
         <div className="mb-4 text-center">
-          <h1 className="fw-bold fs-3">🌎 Conversor UYU-USD-ARS 🌎</h1>
+          <h1 className="fw-bold fs-3">🌎 Conversor de Moneda</h1>
         </div>
 
         <div className={`card shadow-lg w-100 p-4 rounded-4 ${isDarkMode ? 'bg-secondary text-white' : 'bg-white'}`} style={{ maxWidth: '420px' }}>
