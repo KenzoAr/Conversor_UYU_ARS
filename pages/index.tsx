@@ -61,10 +61,13 @@ export default function Home() {
 
   return (
     <>
-      <Head>
+
+    <Head>
         <title>Conversor de Moneda</title>
         <link rel="icon" href="/icon.png" type="image/png" />
-      </Head>
+        {/* Ícono para iPhone y iPad */}
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    </Head>
 
       <div className={`min-vh-100 d-flex flex-column align-items-center justify-content-center p-4 ${isDarkMode ? 'bg-dark text-white' : 'bg-light text-dark'}`}>
         <div className="mb-4 text-center">
