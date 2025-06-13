@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Head from "next/head";
 import { FaClock } from "react-icons/fa";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Home() {
   const [inputValue, setInputValue] = useState<string>("");
